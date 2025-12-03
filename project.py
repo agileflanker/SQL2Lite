@@ -10,6 +10,8 @@ database = mysql.connector.connect(
     database="cs122a"
 )
 
+cursor = database.cursor()
+
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
@@ -44,3 +46,7 @@ if __name__ == "__main__":
 
     else:
         print("No arguments found.")
+
+
+cursor.close()
+database.close()
