@@ -2,6 +2,15 @@ import mysql.connector
 import sys
 import parser
 
+# Connect to the database
+database = mysql.connector.connect(
+    host="localhost",
+    user="test",
+    password="password",
+    database="cs122a"
+)
+
+
 if __name__ == "__main__":
     if len(sys.argv) > 1:
         for i, x in enumerate(sys.argv):        # For debugging ###############################################################
