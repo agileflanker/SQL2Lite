@@ -1,5 +1,6 @@
 import os
 import csv
+import mysql.connector
 
 tables = ["User", 
           "AgentCreator",
@@ -49,13 +50,13 @@ def create_tables(cursor, database):
     interests TEXT NOT NULL,
     cardholder TEXT NOT NULL,
     expire DATE NOT NULL,
-    cardno INT NOT NULL,
+    cardno VARCHAR(20) NOT NULL,
     cvv INT NOT NULL,
     zip INT NOT NULL,
     PRIMARY KEY (uid),
     FOREIGN KEY (uid) REFERENCES User(uid) ON DELETE CASCADE
     );
-    """)
+    """) #Changed cardno to VARCHAR(20) to accommodate longer card numbers
     
     cursor.execute("""CREATE TABLE BaseModel (
     bmid INT,
@@ -142,11 +143,26 @@ def import_data(folder, cursor, database):
         with open(path, mode='r', newline='') as f: #open the file
             reader = csv.reader(f) #read the csv file
             next(reader) #skip first row of column titles
+
+            # if table == "BaseModel":
+            #     print("Importing BaseModel") #You can use this to debug on the gradescope, just put the table that you want
+            # if table == "CustomizedModel":
+            #     print("Importing customizedModel")
+
             for row in reader:
                 row = [None if value == 'NULL' else value for value in row]  # Convert 'NULL' strings to None
-                #print(row)
+
                 placeholders = ','.join(['%s'] * len(row)) 
-                sql = f"INSERT INTO {table} VALUES ({placeholders})"
-                cursor.execute(sql, row)
+                # if table == "InternetService": #Uncomment this to debug specific tables
+                #     print(f'[{row[:2]}]')
+                
+                #There was an error with ModelServeices duplicate entries, so we handle that here
+                try:
+                    sql = f"INSERT INTO {table} VALUES ({placeholders})"
+                    cursor.execute(sql, row)
+                except mysql.connector.IntegrityError as e:
+                    if table == "ModelServices" and "Duplicate entry" in str(e):
+                        continue
+                    raise
     database.commit()
     print("Success")

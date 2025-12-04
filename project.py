@@ -24,11 +24,12 @@ cursor = database.cursor()
 if __name__ == "__main__":
     sys.argv = convert_null_to_none(sys.argv) #This is so 'NULL' will not be inputted, but instead None
     if len(sys.argv) > 1:
-        for i, x in enumerate(sys.argv):        # For debugging ###############################################################
-            print(i, x)
+    #     for i, x in enumerate(sys.argv):        # For debugging ###############################################################
+    #         print(i, x)
+    #         print(x)
         
         cmd = sys.argv[1]
-        print(f"Command: {cmd}\n\n")
+        #print(f"Command: {cmd}\n\n")
         match (cmd):
             case "import":                  # import [folderName:str]
                 parser.import_data(sys.argv[2], cursor, database)

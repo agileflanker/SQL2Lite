@@ -3,7 +3,6 @@
 #Problem 2
 def insertAgentClient(args, cursor, database):
     #parse args
-    print(f'Args: {args}')
     uid = int(args[0])
     username = args[1]
     email = args[2]
@@ -71,12 +70,12 @@ def addCustomizedModel(args, cursor, database):
 def deleteBaseModel(arg, cursor, database):
     bmid = int(arg)
 
-    # #check if bmid in BaseModel
-    # cursor.execute(f"SELECT bmid FROM BaseModel WHERE bmid = {bmid};")
-    # result = cursor.fetchone()
-    # if result is None:
-    #     print("Fail") #FIXME May change based on if fail is if no bmid exists
-    #     return
+    #check if bmid in BaseModel
+    cursor.execute(f"SELECT bmid FROM BaseModel WHERE bmid = {bmid};")
+    result = cursor.fetchone()
+    if result is None:
+        print("Fail") #FIXME May change based on if fail is if no bmid exists
+        return
     
     sql = f"DELETE FROM BaseModel WHERE bmid = %s;"
     cursor.execute(sql, (bmid,))
@@ -102,7 +101,7 @@ def listInternetService(arg, cursor):
     results = cursor.fetchall()
 
     if len(results) == 0:
-        print("0 row")
+        #print(",") #FIXME might want different input
         return
     
     for row in results:
