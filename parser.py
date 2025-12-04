@@ -143,6 +143,7 @@ def import_data(folder, cursor, database):
             reader = csv.reader(f) #read the csv file
             next(reader) #skip first row of column titles
             for row in reader:
+                row = [None if value == 'NULL' else value for value in row]  # Convert 'NULL' strings to None
                 #print(row)
                 placeholders = ','.join(['%s'] * len(row)) 
                 sql = f"INSERT INTO {table} VALUES ({placeholders})"
