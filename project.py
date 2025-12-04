@@ -43,7 +43,7 @@ if __name__ == "__main__":
             case "deleteBaseModel":         # deleteBaseModel [bmid:int]
                 f1.deleteBaseModel(sys.argv[2], cursor, database)
             case "listInternetService":     # listInternetService [bmid:int]
-                pass
+                f1.listInternetService(sys.argv[2], cursor)
             case "countCustomizedModel":    # countCustomizedModel [bmid:int]
                 pass
             case "topNDurationConfig":      # topNDurationConfig [uid:int] [N:int]

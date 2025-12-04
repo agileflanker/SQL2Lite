@@ -82,3 +82,28 @@ def deleteBaseModel(arg, cursor, database):
     cursor.execute(sql, (bmid,))
     database.commit()
     print("Success")
+
+#problem 5
+def listInternetService(arg, cursor):
+    bmid = int(arg)
+
+    sql = """
+    SELECT DISTINCT sid, endpoints, provider
+    FROM InternetService
+    WHERE sid IN (
+        SELECT sid
+        FROM ModelServices
+        WHERE bmid = %s
+    ) 
+    ORDER BY provider ASC;
+    """
+
+    cursor.execute(sql, (bmid,))
+    results = cursor.fetchall()
+
+    if len(results) == 0:
+        print("0,0,0")
+        return
+    
+    for row in results:
+        print(f'{row[0]},{row[1]},{row[2]}')
