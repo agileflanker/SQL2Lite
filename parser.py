@@ -148,3 +148,4 @@ def import_data(folder, cursor, database):
                 sql = f"INSERT INTO {table} VALUES ({placeholders})"
                 cursor.execute(sql, row)
     database.commit()
+    print("Success")

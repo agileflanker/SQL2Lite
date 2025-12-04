@@ -3,6 +3,7 @@ import sys
 
 #Our functions
 import parser
+import func1 as f1
 
 # Connect to the database
 database = mysql.connector.connect(
@@ -26,7 +27,7 @@ if __name__ == "__main__":
             case "import":                  # import [folderName:str]
                 parser.import_data(sys.argv[2], cursor, database)
             case "insertAgentClient":       # insertAgentClient [uid:int]           [username:str] 
-                                            #                   [email:str]         [card_number:int] 
+                f1.insertAgentClient(sys.argv[2:], cursor, database)                            #                   [email:str]         [card_number:int] 
                                             #                   [card_holder:str]   [expiration_date:date] 
                                             #                   [cvv:int]           [zip:int] 
                                             #                   [interests:str]
