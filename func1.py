@@ -1,9 +1,14 @@
-
+def convert_null_to_none(args):
+    for i in range(len(args)):
+        if args[i] == "NULL":
+            args[i] = None
+    return args
+            
 
 #Problem 2
 def insertAgentClient(args, cursor, database):
-    #print(f'Args after splicing: {args}\n\n')
     #parse args
+    args = convert_null_to_none(args)
     uid = int(args[0])
     username = args[1]
     email = args[2]
