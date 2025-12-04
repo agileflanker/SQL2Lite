@@ -1,9 +1,8 @@
 import mysql.connector
 import sys
-import parser
 
 #Our functions
-import table_functions as tf
+import parser
 
 # Connect to the database
 database = mysql.connector.connect(
@@ -25,7 +24,7 @@ if __name__ == "__main__":
         print(f"Command: {cmd}\n\n")
         match (cmd):
             case "import":                  # import [folderName:str]
-                tf.import_data(sys.argv[2], cursor, database)
+                parser.import_data(sys.argv[2], cursor, database)
             case "insertAgentClient":       # insertAgentClient [uid:int]           [username:str] 
                                             #                   [email:str]         [card_number:int] 
                                             #                   [card_holder:str]   [expiration_date:date] 
