@@ -41,7 +41,7 @@ if __name__ == "__main__":
             case "addCustomizedModel":      # addCustomizedModel [mid:int] [bmid:int]
                 f1.addCustomizedModel(sys.argv[2:], cursor, database)
             case "deleteBaseModel":         # deleteBaseModel [bmid:int]
-                pass
+                f1.deleteBaseModel(sys.argv[2], cursor, database)
             case "listInternetService":     # listInternetService [bmid:int]
                 pass
             case "countCustomizedModel":    # countCustomizedModel [bmid:int]

@@ -41,7 +41,7 @@ def insertAgentClient(args, cursor, database):
 #problem 3
 def addCustomizedModel(args, cursor, database):
     #parse args
-    mid = int(args[0])
+    mid = int(args[0]) #FIXME May need to flip
     bmid = int(args[1])
 
     #check if bmid in BaseModel
@@ -64,5 +64,21 @@ def addCustomizedModel(args, cursor, database):
     """
     
     cursor.execute(sql, (bmid, mid))
+    database.commit()
+    print("Success")
+
+#problem 4
+def deleteBaseModel(arg, cursor, database):
+    bmid = int(arg)
+
+    # #check if bmid in BaseModel
+    # cursor.execute(f"SELECT bmid FROM BaseModel WHERE bmid = {bmid};")
+    # result = cursor.fetchone()
+    # if result is None:
+    #     print("Fail") #FIXME May change based on if fail is if no bmid exists
+    #     return
+    
+    sql = f"DELETE FROM BaseModel WHERE bmid = %s;"
+    cursor.execute(sql, (bmid,))
     database.commit()
     print("Success")
