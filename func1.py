@@ -96,13 +96,13 @@ def listInternetService(arg, cursor):
         WHERE bmid = %s
     ) 
     ORDER BY provider ASC;
-    """
+    """ #FIXME might be looking for LLM and DataStorage as well?
 
     cursor.execute(sql, (bmid,))
     results = cursor.fetchall()
 
     if len(results) == 0:
-        print("0,0,0")
+        print("0 row")
         return
     
     for row in results:
