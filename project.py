@@ -5,6 +5,12 @@ import sys
 import parser
 import func1 as f1
 
+def convert_null_to_none(args):
+    for i in range(len(args)):
+        if args[i] == "NULL":
+            args[i] = None
+    return args
+
 # Connect to the database
 database = mysql.connector.connect(
     host="localhost",
@@ -15,8 +21,8 @@ database = mysql.connector.connect(
 
 cursor = database.cursor()
 
-
 if __name__ == "__main__":
+    sys.argv = convert_null_to_none(sys.argv) #This is so 'NULL' will not be inputted, but instead None
     if len(sys.argv) > 1:
         for i, x in enumerate(sys.argv):        # For debugging ###############################################################
             print(i, x)
@@ -33,7 +39,7 @@ if __name__ == "__main__":
                                             #                   [interests:str]
                 pass
             case "addCustomizedModel":      # addCustomizedModel [mid:int] [bmid:int]
-                pass
+                f1.addCustomizedModel(sys.argv[2:], cursor, database)
             case "deleteBaseModel":         # deleteBaseModel [bmid:int]
                 pass
             case "listInternetService":     # listInternetService [bmid:int]

@@ -1,14 +1,9 @@
-def convert_null_to_none(args):
-    for i in range(len(args)):
-        if args[i] == "NULL":
-            args[i] = None
-    return args
-            
 
+            
 #Problem 2
 def insertAgentClient(args, cursor, database):
     #parse args
-    args = convert_null_to_none(args)
+    print(f'Args: {args}')
     uid = int(args[0])
     username = args[1]
     email = args[2]
@@ -39,5 +34,35 @@ def insertAgentClient(args, cursor, database):
     """
 
     cursor.execute(sql, (uid, interests, card_holder, expiration_date, card_number, cvv, zip))
+    database.commit()
+    print("Success")
+
+
+#problem 3
+def addCustomizedModel(args, cursor, database):
+    #parse args
+    mid = int(args[0])
+    bmid = int(args[1])
+
+    #check if bmid in BaseModel
+    cursor.execute(f"SELECT bmid FROM BaseModel WHERE bmid = {bmid};")
+    result = cursor.fetchone()
+    if result is None:
+        print("Fail")
+        return
+    
+    #check if mid in CustomizedModel
+    cursor.execute(f"SELECT mid FROM CustomizedModel WHERE mid = {mid};")
+    result = cursor.fetchone()
+    if result is not None:
+        print("Fail")
+        return
+    
+    sql = """
+    INSERT INTO CustomizedModel (bmid, mid)
+    VALUES (%s, %s);
+    """
+    
+    cursor.execute(sql, (bmid, mid))
     database.commit()
     print("Success")
