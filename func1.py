@@ -101,7 +101,7 @@ def listInternetService(arg, cursor):
     results = cursor.fetchall()
 
     if len(results) == 0:
-        #print(",") #FIXME might want different input
+        print("Fail") #FIXME might want different input
         return
     
     for row in results:
