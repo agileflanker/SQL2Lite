@@ -35,3 +35,23 @@ def topNDurationConfig(uid: int, N: int, cursor):
 
     for row in results:
         print(f"{row[0]},{row[1]},{row[2]},{row[3]},{row[4]}")
+
+# Problem 8
+def listBaseModelKeyWord(key, cursor):
+    sql = """
+    SELECT BM.bmid, S.sid, S.provider, LLM.domain
+    FROM BaseModel BM
+    JOIN ModelServices MS ON MS.bmid = BM.bmid
+    JOIN InternetService S ON S.sid = MS.sid
+    JOIN LLMService LLM ON LLM.sid = S.sid
+    WHERE LLM.domain LIKE %s
+    ORDER BY BM.bmid ASC
+    LIMIT 5;
+    """
+
+    value = f"%{key}%"
+    cursor.execute(sql, (value,))
+    results = cursor.fetchall()
+
+    for row in results:
+        print(f"{row[0]},{row[1]},{row[2]},{row[3]}")

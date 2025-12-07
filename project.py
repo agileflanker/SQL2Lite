@@ -51,7 +51,7 @@ if __name__ == "__main__":
             case "topNDurationConfig":                                  # topNDurationConfig [uid:int] [N:int]
                 f2.topNDurationConfig(int(sys.argv[2]), int(sys.argv[3]), cursor)
             case "listBaseModelKeyWord":                                # listBaseModelKeyWord [keyword:str]
-                pass
+                f2.listBaseModelKeyWord(sys.argv[2], cursor)
             case _:
                 print(f"Invalid command: {cmd}")
         
