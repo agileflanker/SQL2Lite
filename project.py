@@ -25,12 +25,11 @@ cursor = database.cursor()
 if __name__ == "__main__":
     sys.argv = convert_null_to_none(sys.argv) #This is so 'NULL' will not be inputted, but instead None
     if len(sys.argv) > 1:
-    #     for i, x in enumerate(sys.argv):          # For debugging
-    #         print(i, x)
-    #         print(x)
+        #for i, x in enumerate(sys.argv):          # For debugging
+        #    print(i, x, type(x))
         
         cmd = sys.argv[1]
-        # print(f"Command: {cmd}\n\n")              # For debugging
+        #print(f"Command: {cmd}\n\n")              # For debugging
         match (cmd):
             case "import":                                              # import [folderName:str]
                 parser.import_data(sys.argv[2], cursor, database)
@@ -50,7 +49,7 @@ if __name__ == "__main__":
                 bmids = [int(bmid) for bmid in sys.argv[2:]]
                 f2.countCustomizedModel(bmids, cursor)
             case "topNDurationConfig":                                  # topNDurationConfig [uid:int] [N:int]
-                pass
+                f2.topNDurationConfig(int(sys.argv[2]), int(sys.argv[3]), cursor)
             case "listBaseModelKeyWord":                                # listBaseModelKeyWord [keyword:str]
                 pass
             case _:

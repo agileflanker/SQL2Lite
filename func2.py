@@ -17,3 +17,21 @@ def countCustomizedModel(bmids: list[int], cursor):
 
     for row in results:
         print(f"{row[0]},{row[1]},{row[2]}")
+
+# Problem 7
+def topNDurationConfig(uid: int, N: int, cursor):
+    sql = """
+    SELECT C.client_uid, C.cid, C.labels, C.content, MAX(MC.duration) as max_duration
+    FROM Configuration C 
+    JOIN ModelConfigurations MC ON MC.cid = C.cid
+    WHERE C.client_uid = %s
+    GROUP BY C.cid
+    ORDER BY max_duration DESC
+    LIMIT %s;
+    """
+
+    cursor.execute(sql, (uid, N))
+    results = cursor.fetchall()
+
+    for row in results:
+        print(f"{row[0]},{row[1]},{row[2]},{row[3]},{row[4]}")
