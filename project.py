@@ -1,9 +1,10 @@
 import mysql.connector
 import sys
 
-#Our functions
+# Our functions
 import parser
 import func1 as f1
+import func2 as f2
 
 def convert_null_to_none(args):
     for i in range(len(args)):
@@ -24,32 +25,33 @@ cursor = database.cursor()
 if __name__ == "__main__":
     sys.argv = convert_null_to_none(sys.argv) #This is so 'NULL' will not be inputted, but instead None
     if len(sys.argv) > 1:
-    #     for i, x in enumerate(sys.argv):        # For debugging ###############################################################
+    #     for i, x in enumerate(sys.argv):          # For debugging
     #         print(i, x)
     #         print(x)
         
         cmd = sys.argv[1]
-        #print(f"Command: {cmd}\n\n")
+        # print(f"Command: {cmd}\n\n")              # For debugging
         match (cmd):
-            case "import":                  # import [folderName:str]
+            case "import":                                              # import [folderName:str]
                 parser.import_data(sys.argv[2], cursor, database)
-            case "insertAgentClient":       # insertAgentClient [uid:int]           [username:str] 
-                f1.insertAgentClient(sys.argv[2:], cursor, database)                            #                   [email:str]         [card_number:int] 
-                                            #                   [card_holder:str]   [expiration_date:date] 
-                                            #                   [cvv:int]           [zip:int] 
-                                            #                   [interests:str]
+            case "insertAgentClient":                                   # insertAgentClient [uid:int]           [username:str] 
+                f1.insertAgentClient(sys.argv[2:], cursor, database)    #                   [email:str]         [card_number:int] 
+                                                                        #                   [card_holder:str]   [expiration_date:date] 
+                                                                        #                   [cvv:int]           [zip:int] 
+                                                                        #                   [interests:str]
                 pass
-            case "addCustomizedModel":      # addCustomizedModel [mid:int] [bmid:int]
+            case "addCustomizedModel":                                  # addCustomizedModel [mid:int]          [bmid:int]
                 f1.addCustomizedModel(sys.argv[2:], cursor, database)
-            case "deleteBaseModel":         # deleteBaseModel [bmid:int]
+            case "deleteBaseModel":                                     # deleteBaseModel   [bmid:int]
                 f1.deleteBaseModel(sys.argv[2], cursor, database)
-            case "listInternetService":     # listInternetService [bmid:int]
+            case "listInternetService":                                 # listInternetService [bmid:int]
                 f1.listInternetService(sys.argv[2], cursor)
-            case "countCustomizedModel":    # countCustomizedModel [bmid:int]
+            case "countCustomizedModel":                                # countCustomizedModel list([bmid:int])
+                bmids = [int(bmid) for bmid in sys.argv[2:]]
+                f2.countCustomizedModel(bmids, cursor)
+            case "topNDurationConfig":                                  # topNDurationConfig [uid:int] [N:int]
                 pass
-            case "topNDurationConfig":      # topNDurationConfig [uid:int] [N:int]
-                pass
-            case "listBaseModelKeyWord":    # listBaseModelKeyWord [keyword:str]
+            case "listBaseModelKeyWord":                                # listBaseModelKeyWord [keyword:str]
                 pass
             case _:
                 print(f"Invalid command: {cmd}")

@@ -152,7 +152,7 @@ def import_data(folder, cursor, database):
             for row in reader:
                 row = [None if value == 'NULL' else value for value in row]  # Convert 'NULL' strings to None
 
-                placeholders = ','.join(['%s'] * len(row)) 
+                placeholders = ','.join(['%s'] * len(row))
                 # if table == "InternetService": #Uncomment this to debug specific tables
                 #     print(f'[{row[:2]}]')
                 
