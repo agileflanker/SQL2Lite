@@ -14,9 +14,9 @@ def countCustomizedModel(bmids: list[int], cursor):
 
     cursor.execute(sql, bmids)
     results = cursor.fetchall()
-
-    for row in results:
-        print(f"{row[0]},{row[1]},{row[2]}")
+    if results:
+        for row in results:
+            print(f"{row[0]},{row[1]},{row[2]}")
 
 # Problem 7
 def topNDurationConfig(uid: int, N: int, cursor):
@@ -32,9 +32,9 @@ def topNDurationConfig(uid: int, N: int, cursor):
 
     cursor.execute(sql, (uid, N))
     results = cursor.fetchall()
-
-    for row in results:
-        print(f"{row[0]},{row[1]},{row[2]},{row[3]},{row[4]}")
+    if results:
+        for row in results:
+            print(f"{row[0]},{row[1]},{row[2]},{row[3]},{row[4]}")
 
 # Problem 8
 def listBaseModelKeyWord(key, cursor):
@@ -53,5 +53,6 @@ def listBaseModelKeyWord(key, cursor):
     cursor.execute(sql, (value,))
     results = cursor.fetchall()
 
-    for row in results:
-        print(f"{row[0]},{row[1]},{row[2]},{row[3]}")
+    if results:
+        for row in results:
+            print(f"{row[0]},{row[1]},{row[2]},{row[3]}")

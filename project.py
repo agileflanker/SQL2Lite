@@ -5,6 +5,7 @@ import sys
 import parser
 import func1 as f1
 import func2 as f2
+import nl2sql
 
 def convert_null_to_none(args):
     for i in range(len(args)):
@@ -52,6 +53,8 @@ if __name__ == "__main__":
                 f2.topNDurationConfig(int(sys.argv[2]), int(sys.argv[3]), cursor)
             case "listBaseModelKeyWord":                                # listBaseModelKeyWord [keyword:str]
                 f2.listBaseModelKeyWord(sys.argv[2], cursor)
+            case "printNL2SQLresult":
+                nl2sql.printNL2SQLresult()
             case _:
                 print(f"Invalid command: {cmd}")
         
